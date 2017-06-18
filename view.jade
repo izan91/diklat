@@ -107,8 +107,13 @@ template(name='rincian')
         type = 'insert'
         id = 'enterPegawai'
     )
+    ul
+        each pesertas
+            li= nama_peserta
+
+    .btn#empty Kosongkan
 
     h4 Rekomendasi Pegawai
     ul
         each pegawais
-            li= nama
+            li#item= nama

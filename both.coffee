@@ -87,7 +87,8 @@ diklats.allow
 pesertaS = new SimpleSchema
     id_diklat:
         type: String
-        autoform: type: 'hidden'
+        autoform:
+            type: 'hidden'
         autoValue: -> 
             if Meteor.isClient
                 Router.current().params.id
@@ -96,9 +97,17 @@ pesertaS = new SimpleSchema
         type: String
         label: 'ID Peserta'
         optional: true
+    nama_peserta:
+        type: String
+        label: 'Nama Peserta'
+        optional: true
 pesertas.attachSchema pesertaS
 pesertas.allow
     insert: -> true
     update: -> true
     remove: -> true
-# coll peserta untuk menghubungkan 2 tabel pegawa n diklat
+# coll peserta untuk menghubungkan 2 tabel pegawai n diklat
+
+Meteor.methods
+    'emptyDidaftarkan': ->
+        pesertas.remove {}
