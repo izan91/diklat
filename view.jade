@@ -7,8 +7,8 @@ template(name='menu')
     nav: nav.wrapper
         ul.left
             a Beranda
-            a(href='pegawai') Pegawai
-            a(href='diklat') Diklat
+            a(href='/pegawai') Pegawai
+            a(href='/diklat') Diklat
         a.brand-logo.center Diklat Izan
         ul.right
             a Login
@@ -73,23 +73,42 @@ template(name='diklat')
             tr
                 th Judul
                 th Tanggal
-                th Disiplin
                 th Tempat
                 th Aksi
         tbody
-            each datas
+            each diklats
                 tr
                     td= judul
                     td= tanggal
-                    td= disiplin
                     td= tempat
                     td
                         a(href='/diklat/{{_id}}') Rincian
-                        a Hapus
+                        a
+                            +quickRemoveButton(
+                                collection = theColl
+                                _id = this._id
+                            )
 
 template(name='rincian')
     h4 Rincian Diklat
-    p= data.judul
-    p= data.tanggal
-    p= data.disiplin
-    p= data.tempat
+    p= diklat.judul
+    p= diklat.tanggal
+    p= diklat.disiplin
+    p= diklat.tempat
+    
+    ul
+        each val in diklat.kriteria
+            li= val
+
+    h4 Pegawai Disertakan
+    +quickForm(
+        collection = 'pesertas'
+        schema = pesertaS
+        type = 'insert'
+        id = 'enterPegawai'
+    )
+
+    h4 Rekomendasi Pegawai
+    ul
+        each pegawais
+            li= nama

@@ -6,3 +6,5 @@ if Meteor.isServer
         diklats.find {}
     Meteor.publish 'diklat', (id) ->
         diklats.find _id: id
+    Meteor.publish 'pesertas', ->
+        pesertas.find {}

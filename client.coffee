@@ -16,12 +16,14 @@ if Meteor.isClient
             Session.set 'update', false
 
     Template.diklat.helpers
-        datas: -> diklats.find().fetch()
+        diklats: -> diklats.find().fetch()
         insert: -> Session.get 'insert'
+
     Template.diklat.events
         'click #insert': ->
             Session.set 'insert', not Session.get 'insert'
 
     Template.rincian.helpers
-        data: ->
-            diklats.findOne()
+        diklat: -> diklats.findOne()
+        pegawais: -> pegawais.find().fetch()
+        collPeserta: -> pesertas
