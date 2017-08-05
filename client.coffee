@@ -1,5 +1,7 @@
 if Meteor.isClient
 
+	AutoForm.setDefaultTemplate 'materialize'
+
 	Template.registerHelper 'insert', -> Session.get 'insert'
 	Template.registerHelper 'edit', -> Session.get 'update'
 
@@ -10,12 +12,18 @@ if Meteor.isClient
 			Session.set 'update', false
 
 	Template.pegawai.helpers
-		datas: -> pegawais.find().fetch()
+		datas: ->
+			_.map pegawais.find().fetch(), (i) ->
+				bidang = _.find users, (j) -> j.value is i.bidang
+				i.bidang_modified = bidang.label
+				i
 		data: -> pegawais.findOne _id: Session.get 'update'
 
 	Template.pegawai.events
 		'click #update': ->
 			Session.set 'update', this._id
+		'click #removePegawai': ->
+			Meteor.call 'removePegawai', this._id
 
 	Template.diklat.helpers	
 		diklats: -> diklats.find().fetch()
@@ -43,3 +51,14 @@ if Meteor.isClient
 			$('[name="nama_peserta"]').val this.nama
 		'click #empty': ->
 			Meteor.call 'emptyDidaftarkan'
+
+	Template.login.events
+		'submit #login': (event) ->
+			event.preventDefault()
+			username = event.target[0].value
+			password = event.target[1].value
+			Meteor.loginWithPassword username, password, (err) ->
+				if err
+					Materialize.toast err.reason, 4000
+				else
+					Router.go '/' + user

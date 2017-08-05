@@ -21,6 +21,61 @@ Router.route '/diklat/:id',
 		Meteor.subscribe 'pesertas', this.params.id
 	]
 
+Router.route '/login',
+	action: -> this.render 'login'
+Router.route '/logout',
+	action: -> [Meteor.logout(), Router.go '/']
+
+@users = [
+	label: 'Sekretariat'
+	value: 'sekre'
+,
+	label: 'Sumber Daya Air'
+	value: 'sda'
+,
+	label: 'Pembangunan Jalan Jembatan'
+	value: 'pembangunan'
+,
+	label: 'Preservasi Jalan Jembatan'
+	value: 'preservasi'
+,
+	label: 'Air Minum dan Penyehatan Lingkungan'
+	value: 'ampl'
+,
+	label: 'Penataan Ruang'
+	value: 'tata_ruang'
+,
+	label: 'Penataan Bangunan'
+	value: 'tata_bangunan'
+,
+	label: 'UPT Wilayah I'
+	value: 'upt_wil1'
+,
+	label: 'UPT Wilayah II'
+	value: 'upt_wil2'
+,
+	label: 'UPT Wilayah III'
+	value: 'upt_wil3'
+,
+	label: 'UPT Jasa Konstruksi dan SDM'
+	value: 'upt_jakon'
+,
+	label: 'UPT Pengujian Material'
+	value: 'upt_pm'
+,
+	label: 'UPT PIP2B'
+	value: 'upt_pip2b'
+,
+	label: 'UPT Pengelolaan Air Minum'
+	value: 'upt_pam'
+]
+	
+makeUser = (user) ->
+	Router.route '/' + user,
+		action: -> this.render 'pegawai'
+		waitOn: -> Meteor.subscribe 'pegawais', user
+makeUser i.value for i in users
+
 # Urusan Database -------------------------------------------------------------
 @pegawais = new Meteor.Collection 'pegawai'
 pegawaiS = new SimpleSchema
@@ -39,6 +94,8 @@ pegawaiS = new SimpleSchema
 	bidang:
 		type: String
 		label: 'Bidang Pegawai'
+		autoform:
+			options: users
 	kriteria:
 		type: Array
 	'kriteria.$':
@@ -109,10 +166,3 @@ pesertas.allow
 	insert: -> true
 	update: -> true
 	remove: -> true
-# coll peserta untuk menghubungkan 2 tabel pegawai n diklat
-
-Meteor.methods
-	emptyDidaftarkan: ->
-		pesertas.remove {}
-	removeDiklat: (id) ->
-		diklats.remove id

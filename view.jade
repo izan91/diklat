@@ -11,12 +11,25 @@ template(name='menu')
 			a(href='/diklat') Diklat
 		a.brand-logo.center Aplikasi Diklat Jakon
 		ul.right
-			a Login
-			a Register
-			a Logout
+			a(href='/login') Login
+			a(href='/logout') Logout
 
 template(name='home')
 	h4 Beranda
+
+template(name='login'): .container
+	h4.center Login Pengguna
+	form#login
+		.row
+			.input-field.col.m6
+				input.validate#username(type='text')
+				label(for='username') Username
+			.input-field.col.m6
+				input.validate#password(type='password')
+				label(for='password') Password
+		.row
+			.input.field.center
+				input.btn(type='submit' value='Login')
 
 template(name='pegawai')
 	h4 Daftar Pegawai
@@ -54,11 +67,11 @@ template(name='pegawai')
 					td= nip
 					td= pangkat
 					td= jabatan
-					td= bidang
+					td= bidang_modified
 					td= kriteria
 					td
 						small.orange-text#update Ubah
-						small.red-text#remove Hapus
+						small.red-text#removePegawai Hapus
 
 template(name='diklat')
 	h4 Daftar Diklat
