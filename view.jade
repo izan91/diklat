@@ -1,119 +1,118 @@
 template(name='layout')
-    +menu
-    .container
-        +yield
+	+menu
+	.container
+		+yield
 
 template(name='menu')
-    nav: nav.wrapper
-        ul.left
-            a Beranda
-            a(href='/pegawai') Pegawai
-            a(href='/diklat') Diklat
-        a.brand-logo.center Diklat Izan
-        ul.right
-            a Login
-            a Register
-            a Logout
+	nav: nav.wrapper
+		ul.left
+			a Beranda
+			a(href='/pegawai') Pegawai
+			a(href='/diklat') Diklat
+		a.brand-logo.center Aplikasi Diklat Jakon
+		ul.right
+			a Login
+			a Register
+			a Logout
 
 template(name='home')
-    h4 Beranda
+	h4 Beranda
 
 template(name='pegawai')
-    h4 Daftar Pegawai
-    .btn.right#insert Tambah
-    if insert
-        +quickForm(
-            collection = 'pegawais'
-            schema = pegawaiS
-            type = 'insert'
-            id = 'insertPegawai'
-        )
-    if edit
-        +quickForm(
-            collection = 'pegawais'
-            schema = pegawaiS
-            type = 'update'
-            id = 'updatePegawai'
-            doc = data
-        )
-        .btn.right#close Tutup
-    table
-        thead
-            tr
-                th Nama
-                th NIP
-                th Pangkat
-                th Jabatan
-                th Bidang
-                th Disiplin
-                th Aksi
-        tbody
-            each datas
-                tr#update
-                    td= nama
-                    td= nip
-                    td= pangkat
-                    td= jabatan
-                    td= bidang
-                    td= disiplin
-                    td: .btn-flat#remove Hapus
+	h4 Daftar Pegawai
+	.btn.right#insert Tambah
+	if insert
+		+quickForm(
+			collection = 'pegawais'
+			schema = pegawaiS
+			type = 'insert'
+			id = 'insertPegawai'
+		)
+	if edit
+		+quickForm(
+			collection = 'pegawais'
+			schema = pegawaiS
+			type = 'update'
+			id = 'updatePegawai'
+			doc = data
+		)
+		.btn.right#close Tutup
+	table
+		thead
+			tr
+				th Nama
+				th NIP
+				th Pangkat
+				th Jabatan
+				th Bidang
+				th Disiplin
+				th Aksi
+		tbody
+			each datas
+				tr
+					td= nama
+					td= nip
+					td= pangkat
+					td= jabatan
+					td= bidang
+					td= kriteria
+					td
+						small.orange-text#update Ubah
+						small.red-text#remove Hapus
 
 template(name='diklat')
-    h4 Daftar Diklat
-    .btn.right#insert Tambah
-    if insert
-        +quickForm(
-            collection = 'diklats'
-            schema = diklatS
-            type = 'insert'
-            id = 'insertDiklat'
-        )
-    table
-        thead
-            tr
-                th Judul
-                th Tanggal
-                th Tempat
-                th Aksi
-        tbody
-            each diklats
-                tr
-                    td= judul
-                    td= tanggal
-                    td= tempat
-                    td
-                        a(href='/diklat/{{_id}}') Rincian
-                        a
-                            +quickRemoveButton(
-                                collection = theColl
-                                _id = this._id
-                            )
+	h4 Daftar Diklat
+	.btn.right#insert Tambah
+	if insert
+		+quickForm(
+			collection = 'diklats'
+			schema = diklatS
+			type = 'insert'
+			id = 'insertDiklat'
+		)
+	table
+		thead
+			tr
+				th Judul
+				th Tanggal
+				th Tempat
+				th Aksi
+		tbody
+			each diklats
+				tr
+					td= judul
+					td= tanggal
+					td= tempat
+					td
+						a.small.blue-text#read(href='/diklat/{{_id}}') Rincian
+						a.small.red-text#removeDiklat Hapus
 
 template(name='rincian')
-    h4 Rincian Diklat
-    p= diklat.judul
-    p= diklat.tanggal
-    p= diklat.disiplin
-    p= diklat.tempat
+	h4 Rincian Diklat
+	p= diklat.judul
+	p= diklat.tanggal
+	p= diklat.disiplin
+	p= diklat.tempat
     
-    ul
-        each val in diklat.kriteria
-            li= val
+	ul
+		each val in diklat.kriteria
+			li= val
 
-    h4 Pegawai Disertakan
-    +quickForm(
-        collection = 'pesertas'
-        schema = pesertaS
-        type = 'insert'
-        id = 'enterPegawai'
-    )
-    ul
-        each pesertas
-            li= nama_peserta
+	h4 Pegawai Disertakan
+	.btn.right#insert Tambah
+	.right.btn#empty Kosongkan
+	if insert
+		+quickForm(
+			collection = 'pesertas'
+			schema = pesertaS
+			type = 'insert'
+			id = 'enterPegawai'
+		)
+	ul
+		each pesertas
+			li= nama_peserta
 
-    .btn#empty Kosongkan
-
-    h4 Rekomendasi Pegawai
-    ul
-        each pegawais
-            li#item= nama
+	h4 Rekomendasi Pegawai
+	ul
+		each pegawais
+			li#item= nama

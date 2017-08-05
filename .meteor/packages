@@ -26,6 +26,6 @@ aldeed:autoform@5.8.1
 fourseven:scss
 materialize:materialize
 session
-aldeed:delete-button
-drewy:autoform-datetimepicker
 underscore
+gwendall:body-events
+matdutour:popup-confirm
