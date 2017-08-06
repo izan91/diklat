@@ -60,7 +60,7 @@ if Meteor.isClient
 					_.find j.kriteria, (k) -> k.includes i
 				for j in filter
 					list.push j
-			list
+			_.filter list, (i) -> i.bidang is Meteor.user().username
 		collPeserta: -> pesertas
 		pesertas: -> pesertas.find().fetch()
 
