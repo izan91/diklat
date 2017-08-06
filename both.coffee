@@ -127,8 +127,14 @@ diklatS = new SimpleSchema
 		type: String
 		label: 'Judul Diklat'
 	tanggal:
-		type: Date
+		type: Object
 		label: 'Jadwal Diklat'
+	'tanggal.mulai':
+		type: Date
+		label: 'Mulai Diklat'
+	'tanggal.akhir':
+		type: Date
+		label: 'Akhir Diklat'
 	kriteria:
 		type: Array
 	'kriteria.$':

@@ -4,15 +4,17 @@ template(name='layout')
 		+yield
 
 template(name='menu')
-	nav: nav.wrapper
+	.navbar-fixed: nav: nav.wrapper
 		ul.left
 			a Beranda
 			a(href='/pegawai') Pegawai
 			a(href='/diklat') Diklat
 		a.brand-logo.center Aplikasi Diklat Jakon
 		ul.right
-			a(href='/login') Login
-			a(href='/logout') Logout
+			unless currentUser
+				a(href='/login') Login
+			if currentUser
+				a(href='/logout') Logout
 
 template(name='home')
 	h4 Beranda
@@ -87,14 +89,16 @@ template(name='diklat')
 		thead
 			tr
 				th Judul
-				th Tanggal
+				th Tanggal Mulai
+				th Tanggal Akhir
 				th Tempat
 				th Aksi
 		tbody
 			each diklats
 				tr
 					td= judul
-					td= tanggal
+					td= tanggal.mulai
+					td= tanggal.akhir
 					td= tempat
 					td
 						a.small.blue-text#read(href='/diklat/{{_id}}') Rincian
@@ -103,7 +107,8 @@ template(name='diklat')
 template(name='rincian')
 	h4 Rincian Diklat
 	p= diklat.judul
-	p= diklat.tanggal
+	p= diklat.tanggal.mulai
+	p= diklat.tanggal.akhir
 	p= diklat.disiplin
 	p= diklat.tempat
     

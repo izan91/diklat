@@ -30,8 +30,16 @@ if Meteor.isClient
 		insert: -> Session.get 'insert'
 
 	Template.diklat.events
-		'click #removeDiklat': 
-			Meteor.call 'removeDiklat', this._id
+		'click #removeDiklat': ->
+			data = this
+			dialog =
+				message: 'Yakin hapus Diklat ini?'
+				title: 'Konfirmasi Hapus'
+				okText: 'Ya'
+				success: true
+				focus: 'cancel'
+			new Confirmation dialog, (ok) ->
+				if ok then Meteor.call 'removeDiklat', data._id
 
 	Template.rincian.helpers
 		diklat: -> diklats.findOne()
@@ -40,7 +48,8 @@ if Meteor.isClient
 			for i in diklats.findOne().kriteria
 				filter = _.filter pegawais.find().fetch(), (j) ->
 					_.find j.kriteria, (k) -> k.includes i
-				list = filter
+				for j in filter
+					list.push j
 			list
 		collPeserta: -> pesertas
 		pesertas: -> pesertas.find().fetch()

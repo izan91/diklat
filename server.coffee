@@ -19,7 +19,7 @@ if Meteor.isServer
 		emptyDidaftarkan: ->
 			pesertas.remove {}
 		removeDiklat: (id) ->
-			diklats.remove id
+			diklats.remove _id: id
 		removePegawai: (id) ->
 			pegawais.remove _id: id
 
