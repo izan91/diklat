@@ -11,10 +11,12 @@ template(name='menu')
 			a(href='/diklat') Diklat
 		a.brand-logo.center Aplikasi Diklat Jakon
 		ul.right
-			unless currentUser
-				a(href='/login') Login
 			if currentUser
-				a(href='/logout') Logout
+				li: a(href='{{currentUser.username}}')= currentUser.username
+			unless currentUser
+				li: a(href='/login') Login
+			if currentUser
+				li: a(href='/logout') Logout
 
 template(name='home')
 	h4 Beranda
@@ -35,7 +37,8 @@ template(name='login'): .container
 
 template(name='pegawai')
 	h4 Daftar Pegawai
-	.btn.right#insert Tambah
+	if isAdmin
+		.btn.right#insert Tambah
 	if insert
 		+quickForm(
 			collection = 'pegawais'
@@ -79,7 +82,8 @@ template(name='pegawai')
 
 template(name='diklat')
 	h4 Daftar Diklat
-	.btn.right#insert Tambah
+	if isAdmin
+		.btn.right#insert Tambah
 	if insert
 		+quickForm(
 			collection = 'diklats'

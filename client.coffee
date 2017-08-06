@@ -4,6 +4,7 @@ if Meteor.isClient
 
 	Template.registerHelper 'insert', -> Session.get 'insert'
 	Template.registerHelper 'edit', -> Session.get 'update'
+	Template.registerHelper 'isAdmin', -> Meteor.user().username is 'admin'
 
 	Template.body.events
 		'click #insert': ->
@@ -80,7 +81,7 @@ if Meteor.isClient
 				if err
 					Materialize.toast err.reason, 4000
 				else
-					Router.go '/' + user
+					Router.go '/' + username
 
 	AutoForm.addHooks null,
 		after:
