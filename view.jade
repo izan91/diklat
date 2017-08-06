@@ -55,6 +55,7 @@ template(name='pegawai')
 	table
 		thead
 			tr
+				th No.
 				th Nama
 				th NIP
 				th Pangkat
@@ -65,6 +66,7 @@ template(name='pegawai')
 		tbody
 			each datas
 				tr
+					td= num
 					td= nama
 					td= nip
 					td= pangkat
@@ -96,6 +98,7 @@ template(name='diklat')
 	table
 		thead
 			tr
+				th No.
 				th Judul
 				th Tanggal Mulai
 				th Tanggal Akhir
@@ -104,6 +107,7 @@ template(name='diklat')
 		tbody
 			each diklats
 				tr
+					td= num
 					td= judul
 					td= tanggal.mulai
 					td= tanggal.akhir
@@ -111,7 +115,7 @@ template(name='diklat')
 					td
 						a.small.blue-text#read(href='/diklat/{{_id}}') Rincian
 						a.small.orange-text#editDiklat(href='#') Edit
-						a.small.red-text#removeDiklat Hapus
+						a.small.red-text#removeDiklat(href='#') Hapus
 
 template(name='rincian')
 	h4 Rincian Diklat

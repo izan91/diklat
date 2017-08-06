@@ -14,9 +14,11 @@ if Meteor.isClient
 
 	Template.pegawai.helpers
 		datas: ->
-			_.map pegawais.find().fetch(), (i) ->
+			num = 0
+			_.map pegawais.find().fetch().reverse(), (i) ->
 				bidang = _.find users, (j) -> j.value is i.bidang
 				i.bidang_modified = bidang.label
+				++num; i.num = num
 				i
 		data: -> pegawais.findOne _id: Session.get 'update'
 
@@ -27,7 +29,11 @@ if Meteor.isClient
 			Meteor.call 'removePegawai', this._id
 
 	Template.diklat.helpers	
-		diklats: -> diklats.find().fetch()
+		diklats: ->
+			num = 0
+			_.map diklats.find().fetch().reverse(), (i) ->
+				++num; i.num = num
+				i
 		insert: -> Session.get 'insert'
 		editDiklat: -> Session.get 'editDiklat'
 
