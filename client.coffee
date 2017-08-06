@@ -33,6 +33,8 @@ if Meteor.isClient
 		diklats: ->
 			num = 0
 			_.map diklats.find().fetch().reverse(), (i) ->
+				i.tanggal.mulai_modified = moment(i.tanggal.mulai).format('D MMM YYYY')
+				i.tanggal.akhir_modified = moment(i.tanggal.akhir).format('D MMM YYYY')
 				++num; i.num = num
 				i
 		insert: -> Session.get 'insert'
@@ -53,7 +55,11 @@ if Meteor.isClient
 				if ok then Meteor.call 'removeDiklat', data._id
 
 	Template.rincian.helpers
-		diklat: -> diklats.findOne()
+		diklat: ->
+			data = diklats.findOne()
+			data.tanggal.mulai_modified = moment(data.tanggal.mulai).format('D MMM YYYY')
+			data.tanggal.akhir_modified = moment(data.tanggal.akhir).format('D MMM YYYY')
+			data
 		pegawais: ->
 			list = []
 			for i in diklats.findOne().kriteria

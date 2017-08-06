@@ -113,8 +113,8 @@ template(name='diklat')
 				tr
 					td= num
 					td= judul
-					td= tanggal.mulai
-					td= tanggal.akhir
+					td= tanggal.mulai_modified
+					td= tanggal.akhir_modified
 					td= tempat
 					td
 						a.small.blue-text#read(href='/diklat/{{_id}}') Rincian
@@ -124,8 +124,8 @@ template(name='diklat')
 template(name='rincian')
 	h4 Rincian Diklat
 	p= diklat.judul
-	p= diklat.tanggal.mulai
-	p= diklat.tanggal.akhir
+	p= diklat.tanggal.mulai_modified
+	p= diklat.tanggal.akhir_modified
 	p= diklat.disiplin
 	p= diklat.tempat
     
