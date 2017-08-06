@@ -85,6 +85,14 @@ template(name='diklat')
 			type = 'insert'
 			id = 'insertDiklat'
 		)
+	if editDiklat
+		+quickForm(
+			collection = 'diklats'
+			type = 'update'
+			id = 'updateDiklat'
+			doc= editDiklat
+		)
+		.right.orange.btn#close Tutup Edit
 	table
 		thead
 			tr
@@ -102,6 +110,7 @@ template(name='diklat')
 					td= tempat
 					td
 						a.small.blue-text#read(href='/diklat/{{_id}}') Rincian
+						a.small.orange-text#editDiklat(href='#') Edit
 						a.small.red-text#removeDiklat Hapus
 
 template(name='rincian')

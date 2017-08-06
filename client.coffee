@@ -9,7 +9,8 @@ if Meteor.isClient
 		'click #insert': ->
 			Session.set 'insert', not Session.get 'insert'
 		'click #close': ->
-			Session.set 'update', false
+			Session.set 'update', null
+			Session.set 'editDiklat', null
 
 	Template.pegawai.helpers
 		datas: ->
@@ -28,8 +29,11 @@ if Meteor.isClient
 	Template.diklat.helpers	
 		diklats: -> diklats.find().fetch()
 		insert: -> Session.get 'insert'
+		editDiklat: -> Session.get 'editDiklat'
 
 	Template.diklat.events
+		'click #editDiklat': ->
+			Session.set 'editDiklat', this
 		'click #removeDiklat': ->
 			data = this
 			dialog =
@@ -71,3 +75,10 @@ if Meteor.isClient
 					Materialize.toast err.reason, 4000
 				else
 					Router.go '/' + user
+
+	AutoForm.addHooks null,
+		after:
+			insert: (err, res) -> if res
+				Session.set 'insert', false
+			update: (err, res) -> if res
+				Session.set 'editDiklat', null
